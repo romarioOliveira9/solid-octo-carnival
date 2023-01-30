@@ -25,20 +25,20 @@ jobs:
       name: Development
       url: 'http://dev.myapp.com'
     steps:
-      - name: Deploy
-        run: echo I am deploying! 
+      - name: Dev
+        run: echo I am development!
     
   DeployStaging:
     name: Deploy to Staging 
     if: github.event.ref == 'refs/heads/main'
-    needs: [DeployDev]
+    needs: [Build]
     runs-on: ubuntu-latest
     environment: 
       name: Staging
       url: 'http://test.myapp.com'
     steps:
       - name: Deploy
-        run: echo I am deploying! 
+        run: echo I am staging!
             
   DeployProd:
     name: Deploy to Production 
@@ -49,5 +49,5 @@ jobs:
       url: 'http://www.myapp.com'
     steps:
       - name: Deploy
-        run: echo I am deploying! 
+        run: echo I am production!
     
