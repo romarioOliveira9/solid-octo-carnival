@@ -2,51 +2,52 @@ name: CI + CD
 
 on:
   push:
-    branches: [ "main" ]
+    branches: [ main ]
   pull_request:
-    branches: [ "main" ]
+    branches: [ main ]
   workflow_dispatch:
-  
+
 jobs:
   Build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v2
 
       - name: Compile
-        run: echo Olá, Mundo!
-        
+        run: echo Hello, world!
+    
   DeployDev:
-    name: Deploy to Dev
+    name: Deploy to Dev 
     if: github.event_name == 'pull_request'
     needs: [Build]
     runs-on: ubuntu-latest
-    environment:
+    environment: 
       name: Development
       url: 'http://dev.myapp.com'
     steps:
       - name: Deploy
-        run: echo I am deploying!
-        
+        run: echo I am deploying! 
+    
   DeployStaging:
-    name: Deploy to Stating
+    name: Deploy to Staging 
     if: github.event.ref == 'refs/heads/main'
     needs: [Build]
     runs-on: ubuntu-latest
-    environment:
-      name: Stating
-      url: 'http://dev.myapp.com'
+    environment: 
+      name: Staging
+      url: 'http://test.myapp.com'
     steps:
       - name: Deploy
-        run: echo Estou integrado na Homologação!
-        
+        run: echo I am deploying! 
+            
   DeployProd:
-    name: Deploy to Production
+    name: Deploy to Production 
     needs: [DeployStaging]
     runs-on: ubuntu-latest
-    environment:
+    environment: 
       name: Production
-      url: 'http://dev.myapp.com'
+      url: 'http://www.myapp.com'
     steps:
       - name: Deploy
-        run: echo Estou integrado na Produção!
+        run: echo I am deploying! 
+    
